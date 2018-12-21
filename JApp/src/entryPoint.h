@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "macros.h"
-#include "Application.h"
+#include "application/Application.h"
 
 #if APP_PLATFORM_WINDOWS
 // ReSharper disable once CppNonInlineFunctionDefinitionInHeaderFile
