@@ -7,7 +7,7 @@ j_app = require("j_app")
 workspace "JApp"
 	architecture "x64"
 	characterset ("MBCS")
-	startproject "Test"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -22,8 +22,8 @@ workspace "JApp"
 
 j_app.createHere()
 
-project "Test"
-	location "Test"
+project "Sandbox"
+	location "Sandbox"
 	language "C++"
 	cppdialect "C++17"
 	systemversion "latest"
