@@ -1,16 +1,8 @@
 #pragma once
-#include "Application.h"
-#include <iostream>
 
-#if APP_DEBUG
-#define APP_CONFIGURATION "debug"
-#elif APP_RELEASE
-#define APP_CONFIGURATION "release"
-#elif APP_DIST
-#define APP_CONFIGURATION "dist"
-#else
-#define APP_CONFIGURATION "unknown"
-#endif
+#include <iostream>
+#include "macros.h"
+#include "Application.h"
 
 #if APP_PLATFORM_WINDOWS
 // ReSharper disable once CppNonInlineFunctionDefinitionInHeaderFile
