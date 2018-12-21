@@ -14,7 +14,7 @@ project "Test"
 
 	includedirs {
 		"src",
-		"JApp/src",
+		"%{wks.location}/JApp/src",
 	}
 
 	files 
