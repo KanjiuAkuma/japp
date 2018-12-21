@@ -1,0 +1,13 @@
+# some little help:
+# git add * // adds all new files locally to git
+# git commit -m "commit message" // commits added files
+# git push origin master // pushes
+
+# Directories
+.vs/
+build/*
+out/*
+
+# Files
+*.sln*
+*.vcxproj*
