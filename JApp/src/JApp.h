@@ -6,6 +6,9 @@
 /// application (should be about the first include as it includes glew.h before glfw3.h)
 #include "application/Application.h"
 
+/// renderer
+#include "renderer/Renderer.h"
+
 /// events
 #include "eventSystem/EventSystem.h"
 #include "eventSystem/EventListener.h"
