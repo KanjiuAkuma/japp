@@ -91,13 +91,10 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		targetsuffix ("-dbg")
-		symbols "Full"
 
 	filter "configurations:Release"
 		targetsuffix ("-rls")
-		optimize "On"
 
 	filter "configurations:Dist"
-		optimize "On"
 
 	filter {}
