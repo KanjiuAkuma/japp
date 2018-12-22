@@ -7,8 +7,8 @@ JApp::Application* JApp::createApplication() {
 	/* test application */
 	// return new TestApplication();
 	/* test shader */
-	// return new ShaderTestApplication();
+	return new ShaderTestApplication();
 	/* test texture */
-	return new TextureTestApplication();
+	// return new TextureTestApplication();
 }
 
