@@ -1,4 +1,4 @@
-#include "JApp.h"
+#include "entryPoint.h"
 #include "tests/AppTest.h"
 #include "tests/ShaderTest.h"
 #include "tests/TextureTest.h"
