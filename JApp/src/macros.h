@@ -8,7 +8,7 @@
 	#define GL_CALL(x) x
 #elif APP_RELEASE
 	#define APP_CONFIGURATION "release"
-	#define ASSERT(x) if(!x) __debugbreak()
+	#define ASSERT(x) if(!(x)) __debugbreak()
 	#define RELEASE(x) x
 	#define DEBUG(x)
 	#define GL_CALL(x) x
