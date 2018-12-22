@@ -4,6 +4,7 @@
 #include <chrono>
 
 #include "macros.h"
+#include "eventSystem/EventSystem.h"
 
 #define NOW std::chrono::steady_clock::now()
 
@@ -100,10 +101,12 @@ namespace JApp {
 		GL_CALL(glEnable(GL_MULTISAMPLE));
 		#endif
 
-		/* set up event system */
-		// EventSystem::setWindow(m_window);
-		// EventSystem::addListener(static_cast<Listener<WindowResizeEvent>*>(this));
-		// EventSystem::addListener(static_cast<Listener<KeyEvent>*>(this));
+		/* Init event system */
+		EventSystem::setWindow(m_window);
+
+		/* register event listeners */
+		EventSystem::registerListener(static_cast<EventListener<KeyPressEvent>*>(this));
+		EventSystem::registerListener(static_cast<EventListener<ResizeEvent>*>(this));
 	}
 
 	Application::~Application() {
@@ -181,4 +184,22 @@ namespace JApp {
 		glfwHideWindow(m_window);
 	}
 
+	bool Application::process(ResizeEvent* e) {
+		/* update size */
+		m_windowWidth = float(e->width);
+		m_windowHeight = float(e->height);
+
+		/* update viewport */
+		int width, height;
+		glfwGetFramebufferSize(m_window, &width, &height);
+		glViewport(0, 0, width, height);
+		return false;
+	}
+
+	bool Application::process(KeyPressEvent* e) {
+		if (e->key == GLFW_KEY_ESCAPE) {
+			glfwSetWindowShouldClose(m_window, GL_TRUE);
+		}
+		return false;
+	}
 }
