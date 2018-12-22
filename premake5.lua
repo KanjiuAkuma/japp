@@ -2,9 +2,7 @@ out_dir = "%{wks.location}/build/"
 bin_dir = out_dir .. "bin/%{prj.name}/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 bin_int_dir = out_dir .. "bin-int/%{prj.name}/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-os.execute("py util/remove_vs_files.py")
-
-j_app = require("j_app")
+j_app = require("util/j_app")
 
 workspace "JApp"
 	architecture "x64"

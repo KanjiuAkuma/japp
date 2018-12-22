@@ -21,3 +21,4 @@ if __name__ == '__main__':
     for f in vs_files:
         print("Deleting " + f.path)
         os.remove(f.path)
+    input("Press enter to exit...")

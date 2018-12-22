@@ -44,7 +44,7 @@ function m.createHere()
 			}
 
 		filter "configurations:Debug"
-			symbols "On"
+			symbols "Full"
 			defines {
 				"APP_DEBUG"
 			}
@@ -111,7 +111,7 @@ function m.configureThis(j_app_path)
 
 	filter "configurations:Debug"
 		targetsuffix ("-dbg")
-		symbols "On"
+		symbols "Full"
 		defines {
 			"APP_DEBUG"
 		}
