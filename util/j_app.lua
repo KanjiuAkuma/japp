@@ -16,8 +16,7 @@ function m.createHere()
 
 		files 
 		{
-			"%{prj.name}/src/**.h",
-			"%{prj.name}/src/**.cpp",
+			"%{prj.name}/src/**",
 		}
 
 		includedirs {
@@ -87,9 +86,10 @@ function m.configureThis(j_app_path)
 	filter {}
 
 	includedirs {
+		j_app_path .. "/JApp/src",
+		j_app_path .. "/JApp/src/vendor",
 		j_app_path .. "/dependencies/GLEW/include",
 		j_app_path .. "/dependencies/GLFW/include",
-		j_app_path .. "/JApp/src",
 	}
 
 	libdirs {
