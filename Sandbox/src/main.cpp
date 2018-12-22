@@ -1,12 +1,14 @@
 #include "JApp.h"
-
-class TestApplication : public JApp::Application {
-
-public:
-	void render() override {}
-	void update(const float dt) override {}
-};
+#include "tests/AppTest.h"
+#include "tests/ShaderTest.h"
+#include "tests/TextureTest.h"
 
 JApp::Application* JApp::createApplication() {
-	return new TestApplication();
+	/* test application */
+	// return new TestApplication();
+	/* test shader */
+	// return new ShaderTestApplication();
+	/* test texture */
+	return new TextureTestApplication();
 }
+

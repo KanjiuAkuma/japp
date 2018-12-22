@@ -39,5 +39,6 @@ project "Sandbox"
 
 	files 
 	{
+		"%{prj.name}/resources/**",
 		"%{prj.name}/src/**",
 	}
