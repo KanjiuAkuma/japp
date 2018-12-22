@@ -20,7 +20,7 @@
 	#define GL_CALL(x) x	
 #else
 	#error(Unknown configuration)
-	#define ASSERT(x) if(!x) {}
+	#define ASSERT(x) if(!(x)) {}
 	#define APP_CONFIGURATION "unknown"
 	#define RELEASE(x) x
 	#define DEBUG(x) x
