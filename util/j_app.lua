@@ -85,8 +85,12 @@ function m.configureThis(j_app_path)
 	
 	filter {}
 
+	prebuildcommands {
+		"py " .. j_app_path .. "/util/make_include_directory.py"
+	}
+
 	includedirs {
-		j_app_path .. "/JApp/src",
+		j_app_path .. "/include",
 		j_app_path .. "/JApp/src/vendor",
 		j_app_path .. "/dependencies/GLEW/include",
 		j_app_path .. "/dependencies/GLFW/include",
