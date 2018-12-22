@@ -5,6 +5,7 @@
 
 # Directories
 .vs/
+include/*
 build/*
 out/*
 util/.idea/*
