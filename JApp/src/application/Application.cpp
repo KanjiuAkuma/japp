@@ -78,6 +78,7 @@ namespace JApp {
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_window);
+		GL_CALL(glEnable(GL_DEPTH_TEST));
 
 		/* set vsync */
 		#if APP_DIST || APP_RELEASE
@@ -147,7 +148,7 @@ namespace JApp {
 			RELEASE(auto renderStart = NOW);
 
 			/* render */
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			render();
 			glfwSwapBuffers(m_window);
 
