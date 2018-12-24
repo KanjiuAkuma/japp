@@ -1,5 +1,5 @@
 ﻿#shader geometry
-#version 460 core
+#version 330 core
 
 // particle vertices = 3
 // glow vertices = 27

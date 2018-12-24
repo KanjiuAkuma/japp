@@ -1,5 +1,5 @@
 ﻿#shader vertex
-#version 460 core
+#version 330 core
 
 layout(location = 0) in float in_radius;
 layout(location = 1) in float in_glow;
