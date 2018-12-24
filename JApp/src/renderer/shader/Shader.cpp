@@ -84,13 +84,6 @@ std::string Shader::parseFile(const ShaderType type, const std::string& filePath
 		return "";
 	}
 
-	// replace BOM
-	line = line.replace(0, 3, "");
-	if (line.empty() && !getline(stream, line)) {
-		DEBUG(std::cout << "Shader file is empty!" << std::endl);
-		return "";
-	}
-
 	// read first line (shader type) and check
 	std::smatch shaderTypeMatch;
 	if (!std::regex_search(line, shaderTypeMatch, std::regex("(?:#shader )(\\w+)"))) {
