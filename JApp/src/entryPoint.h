@@ -3,10 +3,14 @@
 #include <iostream>
 #include "macros.h"
 #include "application/Application.h"
+#include <ctime>
 
 #if APP_PLATFORM_WINDOWS
 // ReSharper disable once CppNonInlineFunctionDefinitionInHeaderFile
 int main() {
+	/* seed random */
+	std::srand(std::time(nullptr));
+
 	// init log system
 	std::cout << "Configuration " << APP_CONFIGURATION << std::endl;
 
