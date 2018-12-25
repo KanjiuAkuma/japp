@@ -55,7 +55,7 @@ namespace JApp {
 		#endif
 		#endif
 
-		m_timeStep = 2.f / m_targetFrameRate;
+		m_timeStep = 1.f / m_targetFrameRate;
 
 		/* initialize window */
 		m_window = glfwCreateWindow(int(m_windowWidth), int(m_windowHeight), "Ultimate Wallpaper", nullptr, nullptr);
@@ -78,7 +78,6 @@ namespace JApp {
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_window);
-		GL_CALL(glEnable(GL_DEPTH_TEST));
 
 		/* set vsync */
 		#if APP_DIST || APP_RELEASE
@@ -88,6 +87,7 @@ namespace JApp {
 		std::cout << "Vsync off" << std::endl;
 		glfwSwapInterval(0);
 		#endif
+		RELEASE(std::cout << "Target frame rate: " << m_targetFrameRate << ", update time step: " << m_timeStep << std::endl);
 
 		/* Initialize GLEW */
 		glewExperimental = GL_TRUE;
