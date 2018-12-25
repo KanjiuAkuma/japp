@@ -7,7 +7,6 @@
 
 VertexArray::VertexArray()
 {
-	unsigned int* idPtr = &m_RendererID;
 	GL_CALL(glGenVertexArrays(1, &m_RendererID));
 }
 
