@@ -41,7 +41,7 @@ namespace JApp {
 		const float scale = .5;
 		m_windowWidth = scale * videoMode->width;
 		m_windowHeight = scale * videoMode->height;
-		APP_CORE_INFO("Creating debug window w={.0f, h={.0f}", m_windowWidth, m_windowHeight);
+		APP_CORE_INFO("Creating debug window w={:.0f}, h={:.0f}", m_windowWidth, m_windowHeight);
 		m_targetFrameRate = float(videoMode->refreshRate);
 		#else
 		m_windowWidth = float(videoMode->width);
@@ -50,9 +50,9 @@ namespace JApp {
 		glfwWindowHint(GLFW_DECORATED, 0);
 		m_targetFrameRate = float(videoMode->refreshRate) * 2;
 		#if APP_RELEASE
-		APP_CORE_INFO("Creating release window w={.0f}, h={.0f} (windowed fullscreen, maximized, not decorated)\n", m_windowWidth, m_windowHeight);
+		APP_CORE_INFO("Creating release window w={:.0f}, h={:.0f} (windowed fullscreen, maximized, not decorated)", m_windowWidth, m_windowHeight);
 		#elif APP_DIST
-		APP_CORE_INFO("Creating dist window w={.0f}, h={.0f} (windowed fullscreen, maximized, not decorated)\n", m_windowWidth, m_windowHeight);
+		APP_CORE_INFO("Creating dist window w={:.0f}, h={:.0f} (windowed fullscreen, maximized, not decorated)", m_windowWidth, m_windowHeight);
 		glfwWindowHint(GLFW_RESIZABLE, 0);
 		#endif
 		#endif
@@ -88,7 +88,7 @@ namespace JApp {
 		APP_CORE_INFO("Vsync off");
 		glfwSwapInterval(0);
 		#endif
-		APP_CORE_INFO("Target frame rate: {.2f}, update time step: {.4f}", m_targetFrameRate, m_timeStep);
+		APP_CORE_INFO("Target frame rate={:.2f}, update time step={:.4f}", m_targetFrameRate, m_timeStep);
 
 		/* Initialize GLEW */
 		glewExperimental = GL_TRUE;
@@ -172,7 +172,7 @@ namespace JApp {
 					const float fps = frames / sinceLast;
 					const float ups = updates / sinceLast;
 					const float frameTimeMs = frameTimes / frames * 1000;
-					APP_CORE_INFO("fps={.6f}, ups={.2f}, frame time={.6f}ms", fps, ups, frameTimeMs);
+					APP_CORE_INFO("fps={:.2f}, ups={:.2f}, frame time={:.6f}ms", fps, ups, frameTimeMs);
 
 					frames = 0;
 					updates = 0;

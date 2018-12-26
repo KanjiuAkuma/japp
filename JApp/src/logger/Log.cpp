@@ -13,10 +13,10 @@ void Log::init()
 	// core logger
 	s_CoreLogger = spdlog::stdout_color_mt("CORE");
 	s_CoreLogger->set_level(spdlog::level::trace);
-	s_CoreLogger->info("Initialized core log system");
+	s_CoreLogger->trace("Initialized core log system");
 
 	// client logger
 	s_ClientLogger = spdlog::stdout_color_mt("APP");
 	s_ClientLogger->set_level(spdlog::level::trace);
-	s_ClientLogger->info("Initialized client log system");
+	s_ClientLogger->trace("Initialized client log system");
 }
