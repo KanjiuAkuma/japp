@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 
 #include "macros.h"
+#include "logger/Log.h"
 
 Shader::Shader(const unsigned int rendererId)
 	: m_rendererID(rendererId) {}
@@ -74,20 +75,20 @@ std::string Shader::parseFile(const ShaderType type, const std::string& filePath
 	std::stringstream sourceCode;
 
 	if (!stream.is_open()) {
-		DEBUG(std::cout << "Can not open shader file!" << std::endl);
+		APP_CORE_ERROR("Can not open shader file!");
 		return "";
 	}
 
 	// check if file is empty
 	if (!getline(stream, line)) {
-		DEBUG(std::cout << "Shader file is empty!" << std::endl);
+		APP_CORE_ERROR("Shader file is empty!");
 		return "";
 	}
 
 	// read first line (shader type) and check
 	std::smatch shaderTypeMatch;
 	if (!std::regex_search(line, shaderTypeMatch, std::regex("(?:#shader )(\\w+)"))) {
-		DEBUG(std::cout << "Can not find shader type: " << line << std::endl);
+		APP_CORE_ERROR("Can not find shader type in line: {}", line);
 		return "";
 	}
 
@@ -107,19 +108,17 @@ std::string Shader::parseFile(const ShaderType type, const std::string& filePath
 	}
 
 	if (shaderType != expected) {
-		DEBUG(std::cout << "Unexpected shader type '" << shaderType << "'. Expected '" << expected << "'" << std::endl);
+		APP_CORE_ERROR("Unexpected shader type '{}'. Expected '{}'", shaderType, expected);
 		return "";
 	}
 
-	DEBUG(std::cout << "Parsing " << shaderType << " shader from '" << filePath << "'" << std::endl);
-
-	DEBUG(std::cout << "--------- Start of shader code ---------" << std::endl);
+	APP_CORE_TRACE("Parsing {} shader from '{}'", shaderType, filePath);
 
 	while (getline(stream, line)) {
-		DEBUG(std::cout << line << std::endl);
+		APP_CORE_TRACE(line);
 		sourceCode << line << "\n";
 	}
-	DEBUG(std::cout << "--------- End of shader code ---------" << std::endl);
+	APP_CORE_TRACE("--------- End of shader code ---------");
 	return sourceCode.str();
 }
 
@@ -143,7 +142,7 @@ unsigned int Shader::compileShaderSource(const ShaderType type, const std::strin
 		return -1;
 	}
 
-	DEBUG(std::cout << "Compiling " << typeName << " shader" << std::endl);
+	APP_CORE_TRACE("Compiling {} shader", typeName);
 	GL_CALL(const unsigned int id = glCreateShader(glType));
 	const char* src = source.c_str();
 	GL_CALL(glShaderSource(id, 1, &src, nullptr));
@@ -158,8 +157,8 @@ unsigned int Shader::compileShaderSource(const ShaderType type, const std::strin
 			GL_CALL(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len));
 			auto* message = (char*) alloca(len * sizeof(char));
 			GL_CALL(glGetShaderInfoLog(id, len, &len, message));
-			std::cout << "Failed to compile " << typeName << "shader!" << std::endl;
-			std::cout << message << std::endl;
+			APP_CORE_ERROR("Failed to compile {} shader", typeName);
+			APP_CORE_ERROR(message);
 			GL_CALL(glDeleteShader(id));
 			return 0;
 		}
@@ -168,7 +167,7 @@ unsigned int Shader::compileShaderSource(const ShaderType type, const std::strin
 	return id;
 }
 
-bool checkLinking(unsigned int program) {
+bool checkLinking(const unsigned int program) {
 
 	GLint isLinked;
 	GL_CALL(glGetProgramiv(program, GL_LINK_STATUS, &isLinked));
@@ -180,9 +179,9 @@ bool checkLinking(unsigned int program) {
 			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength + 1);
 			GL_CALL(glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]));
-			std::cout << "Failed to link program" << std::endl << "Log:" << std::endl << std::string(infoLog.begin(), infoLog.end() - 1) << std::endl;
+			APP_CORE_ERROR("Failed to link program");
+			APP_CORE_ERROR("Log:{}", std::string(infoLog.begin(), infoLog.end() - 1));
 
-			// delete[] log;
 			return false;
 		}
 	)
@@ -227,7 +226,7 @@ int Shader::getUniformLocation(const std::string& name) {
 
 	GL_CALL(const int location = glGetUniformLocation(m_rendererID, name.c_str()));
 	if (location == -1) {
-		DEBUG(printf("Waring uniform '%s' doesn't exist!\n", name.c_str()));
+		APP_WARN("Waring uniform '{}' doesn't exist!", name.c_str());
 	}
 
 	m_uniformLocationCache[name] = location;

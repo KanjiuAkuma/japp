@@ -6,6 +6,8 @@
 #include "macros.h"
 #include "eventSystem/EventSystem.h"
 
+#include "logger/Log.h"
+
 #define NOW std::chrono::steady_clock::now()
 
 namespace JApp {
@@ -13,7 +15,7 @@ namespace JApp {
 	Application::Application() {
 		/* Initialize the GLFW */
 		if (!glfwInit()) {
-			std::cout << "Can not initialize GLFW!" << std::endl;
+			APP_CORE_CRITICAL("Can not initialize GLFW!");
 			exit(-1);
 		}
 
@@ -25,7 +27,7 @@ namespace JApp {
 
 		/* anti aliasing */
 		#if !APP_DEBUG
-		RELEASE(std::cout << "Using 8 aa-samples" << std::endl);
+		APP_CORE_INFO("Using 8 aa-samples");
 		glfwWindowHint(GLFW_SAMPLES, 8);
 		#endif
 
@@ -39,7 +41,7 @@ namespace JApp {
 		const float scale = .5;
 		m_windowWidth = scale * videoMode->width;
 		m_windowHeight = scale * videoMode->height;
-		printf("Creating debug window w=%.0f, h=%.0f\n", m_windowWidth, m_windowHeight);
+		APP_CORE_INFO("Creating debug window w={.0f, h={.0f}", m_windowWidth, m_windowHeight);
 		m_targetFrameRate = float(videoMode->refreshRate);
 		#else
 		m_windowWidth = float(videoMode->width);
@@ -48,9 +50,9 @@ namespace JApp {
 		glfwWindowHint(GLFW_DECORATED, 0);
 		m_targetFrameRate = float(videoMode->refreshRate) * 2;
 		#if APP_RELEASE
-		printf("Creating release window w=%.0f, h=%.0f (windowed fullscreen, maximized, not decorated)\n", m_windowWidth, m_windowHeight);
+		APP_CORE_INFO("Creating release window w={.0f}, h={.0f} (windowed fullscreen, maximized, not decorated)\n", m_windowWidth, m_windowHeight);
 		#elif APP_DIST
-		// Create dist window (windowed fullscreen, maximized, not decorated, not resizable)
+		APP_CORE_INFO("Creating dist window w={.0f}, h={.0f} (windowed fullscreen, maximized, not decorated)\n", m_windowWidth, m_windowHeight);
 		glfwWindowHint(GLFW_RESIZABLE, 0);
 		#endif
 		#endif
@@ -58,9 +60,9 @@ namespace JApp {
 		m_timeStep = 1.f / m_targetFrameRate;
 
 		/* initialize window */
-		m_window = glfwCreateWindow(int(m_windowWidth), int(m_windowHeight), "Ultimate Wallpaper", nullptr, nullptr);
+		m_window = glfwCreateWindow(int(m_windowWidth), int(m_windowHeight), "", nullptr, nullptr);
 		if (!m_window) {
-			RELEASE(std::cout << "Can not create window!" << std::endl);
+			APP_CORE_CRITICAL("Can not create window!");
 			glfwTerminate();
 			exit(-1);
 		}
@@ -72,7 +74,6 @@ namespace JApp {
 		const auto px = int(m_windowWidth * f);
 		const auto py = int(m_windowHeight * f);
 
-		printf("Centering window, pos x=%d, y=%d\n", px, py);
 		glfwSetWindowPos(m_window, px, py);
 		#endif
 
@@ -81,18 +82,18 @@ namespace JApp {
 
 		/* set vsync */
 		#if APP_DIST || APP_RELEASE
-		RELEASE(std::cout << "Vsync on" << std::endl);
+		APP_CORE_INFO("Vsync on");
 		glfwSwapInterval(1);
 		#else
-		std::cout << "Vsync off" << std::endl;
+		APP_CORE_INFO("Vsync off");
 		glfwSwapInterval(0);
 		#endif
-		RELEASE(std::cout << "Target frame rate: " << m_targetFrameRate << ", update time step: " << m_timeStep << std::endl);
+		APP_CORE_INFO("Target frame rate: {.2f}, update time step: {.4f}", m_targetFrameRate, m_timeStep);
 
 		/* Initialize GLEW */
 		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK) {
-			RELEASE(std::cout << "Can not initialize GLEW!" << std::endl);
+			APP_CORE_CRITICAL("Can not initialize GLEW!");
 			glfwTerminate();
 			exit(-1);
 		}
@@ -171,7 +172,7 @@ namespace JApp {
 					const float fps = frames / sinceLast;
 					const float ups = updates / sinceLast;
 					const float frameTimeMs = frameTimes / frames * 1000;
-					printf("fps=%.6f, ups=%.2f, frame time=%.6fms\n", fps, ups, frameTimeMs);
+					APP_CORE_INFO("fps={.6f}, ups={.2f}, frame time={.6f}ms", fps, ups, frameTimeMs);
 
 					frames = 0;
 					updates = 0;
