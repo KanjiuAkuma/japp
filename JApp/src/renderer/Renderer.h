@@ -2,6 +2,7 @@
 
 #include "indexBuffer/IndexBuffer.h"
 #include "shader/Shader.h"
+#include "textureBuffer/TextureBuffer.h"
 #include "texture/Texture.h"
 #include "vertexArray/VertexArray.h"
 #include "vertexBuffer/VertexBuffer.h"
