@@ -33,6 +33,8 @@ public:
 	void setUniformMat3(const std::string& name, const glm::mat3& m);
 	void setUniformMat4(const std::string& name, const glm::mat4& m);
 	void setUniformBool(const std::string& name, bool value);
+	void setUniformArrF(const std::string& name, float* arr, unsigned int size);
+	void setUniformArrI(const std::string& name, int* arr, unsigned int size);
 
 	static unsigned int compileFile(const ShaderType type, const std::string& path);
 
@@ -46,8 +48,6 @@ public:
 	static Shader* fromFiles(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath);
 
 private:
-	static void printProgramLog(unsigned int program);
-
 	static std::string parseFile(ShaderType type, const std::string& filePath);
 	static unsigned int compileShaderSource(ShaderType type, const std::string& source);
 	static unsigned int createProgram(unsigned int vertexId, unsigned int fragmentId);

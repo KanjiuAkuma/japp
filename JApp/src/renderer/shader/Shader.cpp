@@ -69,6 +69,15 @@ void Shader::setUniformBool(const std::string& name, const bool value) {
 	GL_CALL(glUniform1i(getUniformLocation(name), value));
 }
 
+void Shader::setUniformArrF(const std::string& name, float* arr, const unsigned size) {
+	GL_CALL(glUniform1fv(getUniformLocation(name), size, arr));
+}
+
+
+void Shader::setUniformArrI(const std::string& name, int* arr, const unsigned size) {
+	GL_CALL(glUniform1iv(getUniformLocation(name), size, arr));
+}
+
 std::string Shader::parseFile(const ShaderType type, const std::string& filePath) {
 	std::ifstream stream(filePath, std::ios::in);
 	std::string line;
