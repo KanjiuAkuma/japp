@@ -6,7 +6,7 @@ class Texture
 {
 private:
 	unsigned int m_RendererID;
-	explicit Texture(unsigned char* image, int width, int height);
+	explicit Texture(unsigned char* data, int width, int height);
 public:
 	~Texture();
 
