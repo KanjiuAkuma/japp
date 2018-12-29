@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "macros.h"
+
 #include <GLFW/glfw3.h>
 
 #include "EventListener.h"

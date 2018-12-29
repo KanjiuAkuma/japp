@@ -1,6 +1,5 @@
 ﻿#include "EventSystem.h"
 
-#include "macros.h"
 #include "events/Events.h"
 
 void EventSystem::setWindow(GLFWwindow* window) {
