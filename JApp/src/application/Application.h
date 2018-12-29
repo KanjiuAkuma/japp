@@ -1,6 +1,8 @@
 ﻿#pragma once
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 #include "eventSystem/EventListener.h"
 #include "eventSystem/events/window/ResizeEvent.h"
 #include "eventSystem/events/input/keyboard/KeyPressEvent.h"

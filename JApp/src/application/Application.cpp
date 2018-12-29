@@ -1,11 +1,10 @@
 ﻿#include "Application.h"
 
-#include <iostream>
 #include <chrono>
 
 #include "macros.h"
-#include "eventSystem/EventSystem.h"
 
+#include "eventSystem/EventSystem.h"
 #include "logger/Log.h"
 
 #define NOW std::chrono::steady_clock::now()
