@@ -11,7 +11,7 @@ struct VertexBufferElement
 	unsigned int count;
 	unsigned char normalized;
 
-	static unsigned int getSizeOfType(unsigned int type)
+	static unsigned int getSizeOfType(const unsigned int type)
 	{
 		switch (type)
 		{
@@ -26,31 +26,30 @@ struct VertexBufferElement
 class VertexBufferLayout
 {
 private:
-	std::vector<VertexBufferElement> m_Elements;
+	std::vector<VertexBufferElement> m_elements;
 	unsigned int m_Stride;
 public:
 	VertexBufferLayout()
 		: m_Stride(0) {}
 
 	template <typename T>
-	void push(unsigned int count)
+	void push(const unsigned int count)
 	{
-		static_assert(false);
+		ASSERT(false);
 	}
 
-	template <>
-	void push<float>(unsigned int count)
-	{
-		m_Elements.push_back({GL_FLOAT, count, GL_FALSE});
+	template<>
+	void push<float>(const unsigned int count) {
+		m_elements.push_back({ GL_FLOAT, count, GL_FALSE });
 		m_Stride += VertexBufferElement::getSizeOfType(GL_FLOAT) * count;
 	}
 
-	inline const::std::vector<VertexBufferElement> getElements() const
+	std::vector<VertexBufferElement> getElements() const
 	{
-		return m_Elements;
+		return m_elements;
 	}
-	
-	inline unsigned int getStride() const
+
+	unsigned int getStride() const
 	{
 		return m_Stride;
 	}
