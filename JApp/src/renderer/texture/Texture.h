@@ -6,7 +6,8 @@ class Texture
 {
 private:
 	unsigned int m_RendererID;
-	explicit Texture(unsigned char* data, int width, int height);
+	explicit Texture(unsigned char* image, int width, int height);
+	explicit Texture(float* data, int width, int height);
 public:
 	~Texture();
 
@@ -15,4 +16,5 @@ public:
 
 	static Texture* fromFile(const std::string& path);
 	static Texture* fromValues(unsigned char* image, int width, int height);
+	static Texture* fromValues(float* data, int width, int height);
 };
