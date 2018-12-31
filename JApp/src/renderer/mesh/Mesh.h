@@ -4,7 +4,6 @@
 #include "renderer/vertexBuffer/VertexBuffer.h"
 #include "renderer/vertexBufferLayout/VertexBufferLayout.h"
 #include "renderer/indexBuffer/IndexBuffer.h"
-#include "renderer/shader/Shader.h"
 
 struct Mesh {
 	VertexArray* va;
