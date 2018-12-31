@@ -81,13 +81,13 @@ std::string Shader::parseFile(const ShaderType type, const std::string& filePath
 	std::stringstream sourceCode;
 
 	if (!stream.is_open()) {
-		APP_CORE_ERROR("Can not open shader file!");
+		APP_CORE_ERROR("Can not open shader file! '{}'", filePath);
 		return "";
 	}
 
 	// check if file is empty
 	if (!getline(stream, line)) {
-		APP_CORE_ERROR("Shader file is empty!");
+		APP_CORE_ERROR("Shader file is empty! '{}'", filePath);
 		return "";
 	}
 

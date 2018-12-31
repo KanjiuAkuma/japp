@@ -7,6 +7,7 @@
 
 Texture::Texture(unsigned char* image, const int width, const int height) {
 	// create texture
+	GL_CALL(glActiveTexture(GL_TEXTURE0));
 	GL_CALL(glGenTextures(1, &m_RendererID));
 	GL_CALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));
 		
@@ -48,6 +49,7 @@ Texture::~Texture()
 
 void Texture::bind(const unsigned int slot) const
 {
+	ASSERT(slot != 0);
 	GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
 	GL_CALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));
 }
