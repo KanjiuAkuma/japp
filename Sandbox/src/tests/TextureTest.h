@@ -4,13 +4,12 @@
 #include "renderer/Renderer.h"
 
 class TextureTestApplication : public JApp::Application {
-	VertexArray* va;
-	VertexBuffer* vb;
-	VertexBufferLayout* vbl;
-	IndexBuffer* ib;
+	VertexArray *va1, *va2;
+	VertexBuffer *vb1, *vb2;
+	VertexBufferLayout *vbl1, *vbl2;
 	Shader* shader;
 	Texture* texture;
-
+	float rotation = 0;
 public:
 	explicit TextureTestApplication();
 	~TextureTestApplication();
