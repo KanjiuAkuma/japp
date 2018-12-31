@@ -8,10 +8,10 @@ TextureTestApplication::TextureTestApplication() {
 	const auto* vertices = new float[4 * 4]
 	{
 		//  Position    Texture Coordinates
-			-1.f, -1.f, 0.f, 0.f,	// ll
-			 1.f, -1.f, 1.f, 0.f,	// rl
-			 1.f,  1.f, 1.f, 1.f,	// ru
-			-1.f,  1.f, 0.f, 1.f	// lu
+			-1.f, -1.f, -0.2f, -0.2f,	// ll
+			 1.f, -1.f,  1.2f, -0.2f,	// rl
+			 1.f,  1.f,  1.2f,  1.2f,	// ru
+			-1.f,  1.f, -0.2f,  1.2f	// lu
 	};
 
 	va = new VertexArray();
@@ -39,10 +39,20 @@ TextureTestApplication::TextureTestApplication() {
 	);
 
 	/* load texture */
-	ImageLoader ldr = ImageLoader("resources/textures/testTexture.png");
-	ldr.start();
-	ldr.join();
-	texture = Texture::fromValues(ldr.getImage(), ldr.getImageWidth(), ldr.getImageHeight());
+	// ImageLoader ldr = ImageLoader("resources/textures/testTexture.png");
+	// ldr.start();
+	// ldr.join();
+	// texture = Texture::fromValues(ldr.getImage(), ldr.getImageWidth(), ldr.getImageHeight());
+	float values[]
+	{
+		0.00f, 0.25f, 0.5, 0.75f, 1.f,
+		0.00f, 0.25f, 0.5, 0.75f, 1.f,
+		0.00f, 0.25f, 0.5, 0.75f, 1.f,
+		0.00f, 0.25f, 0.5, 0.75f, 1.f,
+		0.00f, 0.25f, 0.5, 0.75f, 1.f,
+	};
+
+	texture = Texture::fromValues(values, 2, 2);
 
 	/* bind texture */
 	shader->bind();
