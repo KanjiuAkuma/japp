@@ -12,7 +12,7 @@ namespace JApp {
 	class Application : public EventListener<ResizeEvent>, EventListener<KeyPressEvent> {
 	protected:
 		float m_windowWidth, m_windowHeight;
-		float m_targetFrameRate, m_timeStep;
+		float m_targetFrameRate, m_updateTimeStep;
 		GLFWwindow* m_window;
 	public:
 		Application();

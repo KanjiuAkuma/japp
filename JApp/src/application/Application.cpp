@@ -42,6 +42,7 @@ namespace JApp {
 		m_windowHeight = scale * videoMode->height;
 		APP_CORE_INFO("Creating debug window w={:.0f}, h={:.0f}", m_windowWidth, m_windowHeight);
 		m_targetFrameRate = float(videoMode->refreshRate);
+		m_renderTimeStep = 1.f / m_targetFrameRate;
 		#else
 		m_windowWidth = float(videoMode->width);
 		m_windowHeight = float(videoMode->height);
@@ -56,7 +57,7 @@ namespace JApp {
 		#endif
 		#endif
 
-		m_timeStep = 1.f / m_targetFrameRate;
+		m_updateTimeStep = 1.f / m_targetFrameRate;
 
 		/* initialize window */
 		m_window = glfwCreateWindow(int(m_windowWidth), int(m_windowHeight), "", nullptr, nullptr);
@@ -78,16 +79,17 @@ namespace JApp {
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_window);
-
+		
 		/* set vsync */
-		#if APP_DIST || APP_RELEASE
+		#if APP_DIST
 		APP_CORE_INFO("Vsync on");
 		glfwSwapInterval(1);
 		#else
 		APP_CORE_INFO("Vsync off");
 		glfwSwapInterval(0);
 		#endif
-		APP_CORE_INFO("Target frame rate={:.2f}, update time step={:.4f}", m_targetFrameRate, m_timeStep);
+		
+		APP_CORE_INFO("Target frame rate={:.2f}, update time step={:.4f}", m_targetFrameRate, m_updateTimeStep);
 
 		/* Initialize GLEW */
 		glewExperimental = GL_TRUE;
@@ -137,17 +139,19 @@ namespace JApp {
 			excess += dt;
 
 			/* Update game logic*/
-			while (m_timeStep <= excess) {
-				excess -= m_timeStep;
+			while (m_updateTimeStep <= excess) {
+				excess -= m_updateTimeStep;
 				RELEASE(updates++);
 
 				/* update here */
-				update(m_timeStep);
+				update(m_updateTimeStep);
 			}
 
-			RELEASE(auto renderStart = NOW);
 
 			/* render */
+		
+			RELEASE(auto renderStart = NOW);
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			render();
 			glfwSwapBuffers(m_window);
@@ -155,8 +159,8 @@ namespace JApp {
 			/* Update fps stats */
 			RELEASE(
 				frames++;
-				now = NOW;
-				frameTimes += (now - renderStart).count() / 1e9f;
+			now = NOW;
+			frameTimes += (now - renderStart).count() / 1e9f;
 			)
 
 			/* Poll for and process events */
