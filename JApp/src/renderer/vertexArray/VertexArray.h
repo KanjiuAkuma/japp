@@ -3,8 +3,6 @@
 #include "renderer/vertexBuffer/VertexBuffer.h"
 #include "renderer/vertexBufferLayout/VertexBufferLayout.h"
 
-class VertexBufferLayout;
-
 namespace JApp { namespace Renderer {
 
 	class VertexArray {
