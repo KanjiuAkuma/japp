@@ -19,7 +19,7 @@ public:
 	~TextureBuffer();
 	void setData(float* data, unsigned int size) const;
 	float* getDataPointer() const;
-	static void freeDataPointer();
+	void freeDataPointer();
 	void bind(unsigned int slot = 0) const;
 	void unbind() const;
 };
