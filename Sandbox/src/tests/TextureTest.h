@@ -3,6 +3,8 @@
 #include "application/Application.h"
 #include "renderer/Renderer.h"
 
+using namespace JApp;
+
 class TextureTestApplication : public JApp::Application {
 	VertexArray *va1, *va2;
 	VertexBuffer *vb1, *vb2;

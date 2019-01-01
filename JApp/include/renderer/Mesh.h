@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "renderer/vertexArray/VertexArray.h"
-#include "renderer/vertexBuffer/VertexBuffer.h"
-#include "renderer/vertexBufferLayout/VertexBufferLayout.h"
-#include "renderer/indexBuffer/IndexBuffer.h"
+#include "renderer/VertexArray.h"
+#include "renderer/VertexBuffer.h"
+#include "renderer/VertexBufferLayout.h"
+#include "renderer/IndexBuffer.h"
 
 namespace JApp { namespace Renderer {
 

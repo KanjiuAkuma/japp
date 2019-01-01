@@ -1,6 +1,6 @@
-﻿#include "EventSystem.h"
+﻿#include "eventSystem/EventSystem.h"
 
-#include "events/Events.h"
+#include "eventSystem/events/Events.h"
 
 namespace JApp {
 

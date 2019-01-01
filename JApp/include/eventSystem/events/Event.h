@@ -3,6 +3,7 @@
 #include <ostream>
 
 #include "eventSystem/events/EventFormat.h"
+#include "eventSystem/EventListener.h"
 
 namespace JApp {
 

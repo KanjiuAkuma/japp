@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "renderer/vertexBuffer/VertexBuffer.h"
-#include "renderer/vertexBufferLayout/VertexBufferLayout.h"
+#include "renderer/VertexBuffer.h"
+#include "renderer/VertexBufferLayout.h"
 
 namespace JApp { namespace Renderer {
 

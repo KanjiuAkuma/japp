@@ -21,17 +21,14 @@ project "JApp"
 	targetdir(bin_dir)
 	objdir(bin_int_dir)
 
-	postbuildcommands {
-		"py %{prj.location}../util/make_include_directory.py"
-	}
-
 	files 
 	{
 		"%{prj.name}/src/**",
+		"%{prj.name}/include/**",
 	}
 
 	includedirs {
-		"%{prj.name}/src",
+		"%{prj.name}/include",
 		"%{prj.name}/src/vendor",
 		"dependencies/GLEW/include",
 		"dependencies/GLFW/include",

@@ -57,7 +57,7 @@ workspace(workspace_name)
 
 	project(project_name)
 		includedirs {
-			j_app_path .. "/include",
+			j_app_path .. "/JApp/include",
 			j_app_path .. "/JApp/src/vendor",
 			j_app_path .. "/dependencies/GLEW/include",
 			j_app_path .. "/dependencies/GLFW/include",

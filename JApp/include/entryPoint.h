@@ -10,7 +10,7 @@
 #if APP_PLATFORM_WINDOWS
 // ReSharper disable once CppNonInlineFunctionDefinitionInHeaderFile
 int main() {
-	Log::init();
+	JApp::Log::init();
 	/* seed random */
 	std::srand(std::time(nullptr));
 
