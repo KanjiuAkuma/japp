@@ -2,7 +2,11 @@
 
 #include "MouseEvent.h"
 
-struct MouseEnterEvent : MouseEvent<MouseEnterEvent> {
+namespace JApp {
 
-	explicit MouseEnterEvent(const float x, const float y) : MouseEvent("enter", x, y) {}
-};
+	struct MouseEnterEvent : MouseEvent<MouseEnterEvent> {
+
+		explicit MouseEnterEvent(const float x, const float y) : MouseEvent("enter", x, y) {}
+	};
+
+}

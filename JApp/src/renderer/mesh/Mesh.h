@@ -5,18 +5,22 @@
 #include "renderer/vertexBufferLayout/VertexBufferLayout.h"
 #include "renderer/indexBuffer/IndexBuffer.h"
 
-struct Mesh {
-	VertexArray* va;
-	VertexBuffer* vb;
-	VertexBufferLayout* vbl;
-	IndexBuffer* ib;
+namespace JApp { namespace Renderer {
 
-	Mesh(VertexArray* va, VertexBuffer* vb, VertexBufferLayout* vbl, IndexBuffer* ib);
-	~Mesh();
+	struct Mesh {
+		VertexArray* va;
+		VertexBuffer* vb;
+		VertexBufferLayout* vbl;
+		IndexBuffer* ib;
 
-	void bind() const;
-	void unbind() const;
+		Mesh(VertexArray* va, VertexBuffer* vb, VertexBufferLayout* vbl, IndexBuffer* ib);
+		~Mesh();
 
-	unsigned int getVertexCount() const;
+		void bind() const;
+		void unbind() const;
 
-};
+		unsigned int getVertexCount() const;
+
+	};
+
+}}

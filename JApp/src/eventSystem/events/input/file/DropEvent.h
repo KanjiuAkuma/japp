@@ -3,16 +3,20 @@
 #include "eventSystem/events/input/InputEvent.h"
 #include "eventSystem/events/EventFormat.h"
 
-struct DropEvent : InputEvent<DropEvent> {
-	const int fileCount;
-	const char** paths;
+namespace JApp {
 
-	DropEvent(const int fileCount, const char** paths): InputEvent("drop"), fileCount(fileCount), paths(paths) {}
+	struct DropEvent : InputEvent<DropEvent> {
+		const int fileCount;
+		const char** paths;
 
-	void formatData(EventFormat& format) override {
-		format.append("file count", fileCount);
-		for (int i = 0; i < fileCount; i++) {
-			format.append(&"file"[i], paths[i]);
+		DropEvent(const int fileCount, const char** paths) : InputEvent("drop"), fileCount(fileCount), paths(paths) {}
+
+		void formatData(EventFormat& format) override {
+			format.append("file count", fileCount);
+			for (int i = 0; i < fileCount; i++) {
+				format.append(&"file"[i], paths[i]);
+			}
 		}
-	}
-};
+	};
+
+}

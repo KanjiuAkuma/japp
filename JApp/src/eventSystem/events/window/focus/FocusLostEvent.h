@@ -2,6 +2,10 @@
 
 #include "FocusEvent.h"
 
-struct FocusGainedEvent : FocusEvent<FocusGainedEvent> {
-	FocusGainedEvent() : FocusEvent("gained", true) {}
-};
+namespace JApp {
+
+	struct FocusGainedEvent : FocusEvent<FocusGainedEvent> {
+		FocusGainedEvent() : FocusEvent("gained", true) {}
+	};
+
+}

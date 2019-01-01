@@ -2,6 +2,10 @@
 
 #include "FocusEvent.h"
 
-struct FocusLostEvent : FocusEvent<FocusLostEvent> {
-	FocusLostEvent() : FocusEvent("lost", false) {}
-};
+namespace JApp {
+
+	struct FocusLostEvent : FocusEvent<FocusLostEvent> {
+		FocusLostEvent() : FocusEvent("lost", false) {}
+	};
+
+}

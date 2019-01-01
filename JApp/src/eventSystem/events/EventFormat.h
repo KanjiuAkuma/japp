@@ -1,24 +1,28 @@
 ﻿#pragma once
 #include <sstream>
 
-class EventFormat {
-private:
-	std::stringstream stream;
-	int m_elements = 0;
-public:
+namespace JApp {
 
-	explicit EventFormat(const std::string& type);
+	class EventFormat {
+	private:
+		std::stringstream stream;
+		int m_elements = 0;
+	public:
 
-	std::string str() const;
+		explicit EventFormat(const std::string& type);
 
-	template<typename T>
-	void append(const std::string& name, T value) {
-		if (!m_elements++) {
-			stream << ":";
+		std::string str() const;
+
+		template<typename T>
+		void append(const std::string& name, T value) {
+			if (!m_elements++) {
+				stream << ":";
+			}
+			else {
+				stream << ",";
+			}
+			stream << " " << name << "=" << value;
 		}
-		else {
-			stream << ",";
-		}
-		stream << " " << name << "=" << value;
-	}
-};
+	};
+
+}

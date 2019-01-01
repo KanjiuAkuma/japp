@@ -1,9 +1,13 @@
 ﻿#include "EventFormat.h"
 
-EventFormat::EventFormat(const std::string& type) {
-	stream << type;
-}
+namespace JApp {
 
-std::string EventFormat::str() const {
-	return stream.str();
+	EventFormat::EventFormat(const std::string& type) {
+		stream << type;
+	}
+
+	std::string EventFormat::str() const {
+		return stream.str();
+	}
+
 }
