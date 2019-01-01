@@ -14,3 +14,13 @@ void Mesh::bind() const {
 	va->bind();
 	ib->bind();
 }
+
+void Mesh::unbind() const {
+	va->unbind();
+	ib->unbind();
+}
+
+
+unsigned Mesh::getVertexCount() const {
+	return ib->getCount();
+}
