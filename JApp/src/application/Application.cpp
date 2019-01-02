@@ -42,7 +42,6 @@ namespace JApp {
 		m_windowHeight = scale * videoMode->height;
 		APP_CORE_INFO("Creating debug window w={:.0f}, h={:.0f}", m_windowWidth, m_windowHeight);
 		m_targetFrameRate = float(videoMode->refreshRate);
-		m_renderTimeStep = 1.f / m_targetFrameRate;
 		#else
 		m_windowWidth = float(videoMode->width);
 		m_windowHeight = float(videoMode->height);
