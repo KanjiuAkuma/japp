@@ -2,10 +2,11 @@
 
 #include "macros.h"
 #include <GL/glew.h>
+#include "renderer/Texture.h"
 
 namespace JApp { namespace Renderer {
 
-	TextureBuffer::TextureBuffer(const DataType dataType) {
+	TextureBuffer::TextureBuffer(const DataType dataType) : m_slot(Texture::getFreeSlot()) {
 		GL_CALL(glGenBuffers(1, &m_bufferId));
 		GL_CALL(glBindBuffer(GL_TEXTURE_BUFFER, m_bufferId));
 		GL_CALL(glGenTextures(1, &m_textureId));
@@ -39,6 +40,7 @@ namespace JApp { namespace Renderer {
 	TextureBuffer::~TextureBuffer() {
 		GL_CALL(glDeleteBuffers(1, &m_bufferId));
 		GL_CALL(glDeleteTextures(1, &m_textureId));
+		Texture::freeSlot(m_slot);
 	}
 
 	void TextureBuffer::setData(float* data, const unsigned int size) const {
@@ -52,13 +54,17 @@ namespace JApp { namespace Renderer {
 		GL_CALL(return (float*)glMapBuffer(GL_TEXTURE_BUFFER, GL_WRITE_ONLY));
 	}
 
-	void TextureBuffer::freeDataPointer() {
+	void TextureBuffer::freeDataPointer() const {
 		GL_CALL(glUnmapBuffer(GL_TEXTURE_BUFFER));
 	}
 
-	void TextureBuffer::bind(const unsigned int slot) const {
-		ASSERT(slot != 0);
-		GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
+	unsigned TextureBuffer::getSlot() const {
+		return m_slot;
+	}
+
+	void TextureBuffer::bind() const {
+		ASSERT(m_slot != 0);
+		GL_CALL(glActiveTexture(GL_TEXTURE0 + m_slot));
 		GL_CALL(glBindTexture(GL_TEXTURE_BUFFER, m_textureId));
 		GL_CALL(glTexBuffer(GL_TEXTURE_BUFFER, m_dataType, m_bufferId));
 	}

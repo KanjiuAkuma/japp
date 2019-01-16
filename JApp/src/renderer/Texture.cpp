@@ -7,11 +7,35 @@
 
 namespace JApp { namespace Renderer {
 
-	Texture::Texture(unsigned char* image, const int width, const int height) {
+	std::forward_list<unsigned>* Texture::generateFreeSlots() {
+		auto* out = new std::forward_list<unsigned int>(MAX_SLOTS);
+
+		for (unsigned int i = MAX_SLOTS - 1; 0 < i; i--) {
+			out->push_front(i);
+		}
+
+		return out;
+	}
+
+	unsigned int Texture::getFreeSlot() {
+		if (!s_freeSlots->empty()) {
+			const unsigned int slot = s_freeSlots->front();
+			s_freeSlots->pop_front();
+			return slot;
+		} else {
+			throw std::runtime_error("No free texture slot!");
+		}
+	}
+
+	void Texture::freeSlot(const unsigned slot) {
+		s_freeSlots->push_front(slot);
+	}
+
+	Texture::Texture(unsigned char* image, const int width, const int height) : m_slot(getFreeSlot()){
 		// create texture
 		GL_CALL(glActiveTexture(GL_TEXTURE0));
-		GL_CALL(glGenTextures(1, &m_RendererID));
-		GL_CALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));
+		GL_CALL(glGenTextures(1, &m_rendererID));
+		GL_CALL(glBindTexture(GL_TEXTURE_2D, m_rendererID));
 
 		/* setup texture scaling and wrapping */
 		GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
@@ -26,10 +50,10 @@ namespace JApp { namespace Renderer {
 		GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));
 	}
 
-	Texture::Texture(float* data, const int width, const int height) {
+	Texture::Texture(float* data, const int width, const int height) : m_slot(getFreeSlot()){
 		// create texture
-		GL_CALL(glGenTextures(1, &m_RendererID));
-		GL_CALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));
+		GL_CALL(glGenTextures(1, &m_rendererID));
+		GL_CALL(glBindTexture(GL_TEXTURE_2D, m_rendererID));
 
 		/* setup texture scaling and wrapping */
 		GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
@@ -45,13 +69,17 @@ namespace JApp { namespace Renderer {
 	}
 
 	Texture::~Texture() {
-		GL_CALL(glDeleteTextures(1, &m_RendererID));
+		GL_CALL(glDeleteTextures(1, &m_rendererID));
+		freeSlot(m_slot);
 	}
 
-	void Texture::bind(const unsigned int slot) const {
-		ASSERT(slot != 0);
-		GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
-		GL_CALL(glBindTexture(GL_TEXTURE_2D, m_RendererID));
+	unsigned Texture::getSlot() const {
+		return m_slot;
+	}
+
+	void Texture::bind() const {
+		GL_CALL(glActiveTexture(GL_TEXTURE0 + m_slot));
+		GL_CALL(glBindTexture(GL_TEXTURE_2D, m_rendererID));
 	}
 
 	void Texture::unbind() const {
