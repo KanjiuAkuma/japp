@@ -123,10 +123,10 @@ namespace JApp { namespace Renderer {
 		APP_CORE_TRACE("Parsing {} shader from '{}'", shaderType, filePath);
 
 		while (getline(stream, line)) {
-			APP_CORE_TRACE(line);
+			// APP_CORE_TRACE(line);
 			sourceCode << line << "\n";
 		}
-		APP_CORE_TRACE("--------- End of shader code ---------");
+		// APP_CORE_TRACE("--------- End of shader code ---------");
 		return sourceCode.str();
 	}
 
@@ -150,7 +150,7 @@ namespace JApp { namespace Renderer {
 			return -1;
 		}
 
-		APP_CORE_TRACE("Compiling {} shader", typeName);
+		// APP_CORE_TRACE("Compiling {} shader", typeName);
 		GL_CALL(const unsigned int id = glCreateShader(glType));
 		const char* src = source.c_str();
 		GL_CALL(glShaderSource(id, 1, &src, nullptr));
