@@ -69,9 +69,8 @@ namespace JApp {
 		/* window position */
 		# if APP_DEBUG
 		// p = (screen_size - window_size) / 2, (screen_size - screen_size * scale) / 2 = screen_size * (1 - scale) / 2
-		const float f = (1.f - scale) / 2;
-		const auto px = int(m_windowWidth * f);
-		const auto py = int(m_windowHeight * f);
+		const auto px = int(videoMode->width * (1.f - scale) / 2.f);
+		const auto py = int(videoMode->height * (1.f - scale) / 2.f);
 
 		glfwSetWindowPos(m_window, px, py);
 		#endif
@@ -190,8 +189,8 @@ namespace JApp {
 
 	bool Application::process(ResizeEvent* e) {
 		/* update size */
-		m_windowWidth = float(e->width);
-		m_windowHeight = float(e->height);
+		if (e->width != 0) m_windowWidth = float(e->width);
+		if (e->height!= 0) m_windowHeight = float(e->height);
 
 		/* update viewport */
 		int width, height;
