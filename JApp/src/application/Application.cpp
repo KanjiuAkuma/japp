@@ -27,7 +27,7 @@ namespace JApp {
 		/* anti aliasing */
 		#if !APP_DEBUG
 		APP_CORE_INFO("Using 8 aa-samples");
-		glfwWindowHint(GLFW_SAMPLES, 8);
+		glfwWindowHint(GLFW_SAMPLES, 16);
 		#endif
 
 		/* window size and hints */
@@ -120,14 +120,14 @@ namespace JApp {
 		glfwShowWindow(m_window);
 		
 		/* Fps counter */
-		RELEASE(
+		APP_FPS_COUNTER(
 			float frameTimes = 0;
 			float frames = 0;
 			float updates = 0;
 		)
 
 		auto lastNow = NOW;
-		RELEASE(auto last = NOW);
+		APP_FPS_COUNTER(auto last = NOW);
 
 		float excess = 0;
 		while (!glfwWindowShouldClose(m_window)) {
@@ -139,7 +139,7 @@ namespace JApp {
 			/* Update game logic*/
 			while (m_updateTimeStep <= excess) {
 				excess -= m_updateTimeStep;
-				RELEASE(updates++);
+				APP_FPS_COUNTER(updates++);
 
 				/* update here */
 				update(m_updateTimeStep);
@@ -148,24 +148,24 @@ namespace JApp {
 
 			/* render */
 		
-			RELEASE(auto renderStart = NOW);
+			APP_FPS_COUNTER(auto renderStart = NOW);
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			render();
 			glfwSwapBuffers(m_window);
 
 			/* Update fps stats */
-			RELEASE(
+			APP_FPS_COUNTER(
 				frames++;
-			now = NOW;
-			frameTimes += (now - renderStart).count() / 1e9f;
+				now = NOW;
+				frameTimes += (now - renderStart).count() / 1e9f;
 			)
 
 			/* Poll for and process events */
 			glfwPollEvents();
 
 			/* Log fps */
-			RELEASE(
+			APP_FPS_COUNTER(
 				float sinceLast = 1.f * (now - last).count();
 				if (1e9 < sinceLast) {
 					// update global stats

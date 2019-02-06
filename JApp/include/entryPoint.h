@@ -12,7 +12,7 @@
 int main() {
 	JApp::Log::init();
 	/* seed random */
-	std::srand(std::time(nullptr));
+	std::srand(unsigned int(std::time(nullptr)));
 
 	// init log system
 	APP_CORE_INFO("Configuration {}", APP_CONFIGURATION);

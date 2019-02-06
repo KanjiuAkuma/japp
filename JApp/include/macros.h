@@ -31,6 +31,13 @@
 	#define GL_CALL(x) x
 #endif
 
+#if NO_FPS_LOG
+	#define APP_FPS_COUNTER(x)
+#elif APP_DEBUG || APP_RELEASE
+	#define APP_FPS_COUNTER(x)  x
+#endif
+
+
 inline void glClearErrors()
 {
 	while (glGetError() != GL_NO_ERROR);
