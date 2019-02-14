@@ -3,12 +3,16 @@ bin_dir = out_dir .. "bin/%{prj.name}/%{cfg.buildcfg}-%{cfg.system}-%{cfg.archit
 bin_int_dir = out_dir .. "bin-int/%{prj.name}/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 j_app = require("util/j_app")
-j_app.configureProject("%{wks.location}", "JApp", "Sandbox")
 
 workspace "JApp"
 	architecture "x64"
 	characterset ("MBCS")
-	startproject "Sandbox"
+
+    configurations {
+        "Debug",
+        "Release",
+        "Dist"
+    }
 
 project "JApp"
 	location "JApp"
@@ -21,7 +25,7 @@ project "JApp"
 	targetdir(bin_dir)
 	objdir(bin_int_dir)
 
-	files 
+	files
 	{
 		"%{prj.name}/src/**",
 		"%{prj.name}/include/**",
@@ -53,45 +57,4 @@ project "JApp"
 
 	filter "configurations:Dist"
 		optimize "On"
-	filter {}
-
-project "Sandbox"
-	location "Sandbox"
-	language "C++"
-	cppdialect "C++17"
-	systemversion "latest"
-
-	filter "configurations:Debug"
-		kind "ConsoleApp"
-
-	filter "configurations:Release"
-		kind "ConsoleApp"
-
-	filter "configurations:Dist"
-		kind "WindowedApp"
-		entrypoint "mainCRTStartup"
-	
-	filter {}
-
-	targetdir(bin_dir)
-	objdir(bin_int_dir)
-
-	includedirs {
-		"src",
-	}
-
-	files 
-	{
-		"%{prj.name}/resources/**",
-		"%{prj.name}/src/**",
-	}
-
-	filter "configurations:Debug"
-		targetsuffix ("-dbg")
-
-	filter "configurations:Release"
-		targetsuffix ("-rls")
-
-	filter "configurations:Dist"
-
 	filter {}
