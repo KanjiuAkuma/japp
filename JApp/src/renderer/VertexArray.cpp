@@ -21,8 +21,7 @@ namespace JApp { namespace Renderer {
 		for (unsigned int i = 0; i < elements.size(); i++) {
 			const auto& element = elements[i];
 			GL_CALL(glEnableVertexAttribArray(i));
-			GL_CALL(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout->getStride(), (
-				const void*)offset));
+			GL_CALL(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout->getStride(), (const void*) offset));
 
 			offset += element.count * VertexBufferElement::getSizeOfType(element.type);
 		}

@@ -18,43 +18,6 @@ end
 
 function m.configureProject(j_app_path, workspace_name, project_name)
 workspace(workspace_name)
-
-
-	configurations
-	{
-		"Debug",
-		"Release",
-		"Dist",
-	}
-
-	defines {
-		"GLEW_STATIC"
-	}
-
-	filter "system:windows"
-		defines {
-			"APP_PLATFORM_WINDOWS"
-		}
-
-	filter "configurations:Debug"
-		symbols "Full"
-		defines {
-			"APP_DEBUG"
-		}
-
-	filter "configurations:Release"
-		optimize "On"
-		defines {
-			"APP_RELEASE"
-		}
-
-	filter "configurations:Dist"
-		optimize "On"
-		defines {
-			"APP_DIST"
-		}
-	filter {}
-
 	project(project_name)
 		includedirs {
 			j_app_path .. "/JApp/include",

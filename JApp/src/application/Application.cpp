@@ -32,6 +32,7 @@ namespace JApp {
 
 		/* window size and hints */
 		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		GLFWmonitor* targetMonitor = nullptr;
 		const GLFWvidmode* videoMode = glfwGetVideoMode(monitor);
 
 		glfwWindowHint(GLFW_VISIBLE, 0);
@@ -49,8 +50,10 @@ namespace JApp {
 		glfwWindowHint(GLFW_DECORATED, 0);
 		m_targetFrameRate = float(videoMode->refreshRate) * 2;
 		#if APP_RELEASE
+		targetMonitor = monitor;
 		APP_CORE_INFO("Creating release window w={:.0f}, h={:.0f} (windowed fullscreen, maximized, not decorated)", m_windowWidth, m_windowHeight);
 		#elif APP_DIST
+		targetMonitor = monitor;
 		APP_CORE_INFO("Creating dist window w={:.0f}, h={:.0f} (windowed fullscreen, maximized, not decorated)", m_windowWidth, m_windowHeight);
 		glfwWindowHint(GLFW_RESIZABLE, 0);
 		#endif
@@ -77,15 +80,7 @@ namespace JApp {
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(m_window);
-		
-		/* set vsync */
-		#if APP_DIST
-		APP_CORE_INFO("Vsync on");
-		glfwSwapInterval(1);
-		#else
-		APP_CORE_INFO("Vsync off");
-		glfwSwapInterval(0);
-		#endif
+	
 		
 		APP_CORE_INFO("Target frame rate={:.2f}, update time step={:.4f}", m_targetFrameRate, m_updateTimeStep);
 
@@ -102,6 +97,15 @@ namespace JApp {
 		GL_CALL(glEnable(GL_MULTISAMPLE));
 		#endif
 
+		/* set vsync */
+		#if APP_DIST | APP_RELEASE
+		APP_CORE_INFO("Vsync on");
+		glfwSwapInterval(1);
+		#else
+		APP_CORE_INFO("Vsync off");
+		glfwSwapInterval(0);
+		#endif
+
 		/* Init event system */
 		EventSystem::setWindow(m_window);
 
@@ -111,6 +115,7 @@ namespace JApp {
 	}
 
 	Application::~Application() {
+		glfwDestroyWindow(m_window);
 		glfwTerminate();
 	}
 
