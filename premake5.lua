@@ -2,6 +2,7 @@ out_dir = "%{wks.location}/build/"
 bin_dir = out_dir .. "bin/%{prj.name}/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 bin_int_dir = out_dir .. "bin-int/%{prj.name}/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- this path is probably broken
 j_app = require("util/j_app")
 
 workspace "JApp"
